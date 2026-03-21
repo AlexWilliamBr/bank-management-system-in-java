@@ -6,23 +6,24 @@ import java.util.Scanner;
 
 
 public class Creation {
-    User user = new User();
+
 
     void createAccFun() throws IOException {// aqui é uma notificação que o cadrasto deu certo
         int accNo = accNoCreation();
-        String[] accLineInfo = getUserInfoFromUser();
-        credWrite(accNo,accLineInfo);
+        User accLineInfo = getUserInfoFromUser();
+        credWrite(accNo, accLineInfo.senha);
         balWrite(accNo);
         userWrite(accNo, accLineInfo);
         System.out.println("\nAccount created successfully!\n");
         System.out.println("Your account number is: " + accNo);
-        System.out.println("Your password is: " + accLineInfo[8]+ "\n");
+        System.out.println("Your password is: " + accLineInfo.senha+"\n");
         Main.menu(accNo);
 
     }
 
       User getUserInfoFromUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
+        User user = new User();
 
         System.out.println("Enter your Name: ");
         String fullName = scanner.nextLine();
@@ -77,9 +78,9 @@ public class Creation {
         return accNo;
     }
 
-    void credWrite(int accNo, String[] accLineInfo) throws IOException {
+    void credWrite(int accNo, String senha) throws IOException {
         FileWriter writer = new FileWriter("db/credentials.txt", true);
-        writer.write("\n" + accNo + " " + accLineInfo[8]);
+        writer.write("\n" + accNo + " " + senha);
         writer.close();
     }
 
@@ -90,13 +91,17 @@ public class Creation {
         writer.close();
     }
 
-    void userWrite(int accNo, String[] accLineInfo) throws IOException {
+    void userWrite(int accNo,  User accLineInfo) throws IOException {
         FileWriter writer = new FileWriter("db/userDB.txt", true);
         writer.write("\n" + accNo + " ");
-        for (int i = 0; i < 8; i++) {
-            writer.write(accLineInfo[i] + " ");
-        }
-        writer.close();
+        writer.write(accLineInfo.nome + " ");
+        writer.write(accLineInfo.sobrenome + " ");
+        writer.write(accLineInfo.dataNascimento + " ");
+        writer.write(accLineInfo.genero + " ");
+        writer.write(accLineInfo.endereco + " ");
+        writer.write(accLineInfo.telefone + " ");
+        writer.write(accLineInfo.email + " ");
+        writer.write(accLineInfo.documento + " ");
     }
 
 
