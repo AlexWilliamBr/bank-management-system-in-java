@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Creation {
 
-    void createAccFun() throws IOException {
+public class Creation {
+    User user = new User();
+
+    void createAccFun() throws IOException {// aqui é uma notificação que o cadrasto deu certo
         int accNo = accNoCreation();
         String[] accLineInfo = getUserInfoFromUser();
         credWrite(accNo,accLineInfo);
@@ -16,40 +18,45 @@ public class Creation {
         System.out.println("Your account number is: " + accNo);
         System.out.println("Your password is: " + accLineInfo[8]+ "\n");
         Main.menu(accNo);
+
     }
 
-    String[] getUserInfoFromUser() throws IOException {
-        String[] accLineInfo = new String[9];
+      User getUserInfoFromUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter your Name: ");
         String fullName = scanner.nextLine();
         String[] fullNameArr = fullName.split(" ");
         if (fullNameArr.length == 2) {
-            accLineInfo[0] = fullNameArr[0];
-            accLineInfo[1] = fullNameArr[1];
+            user.nome = fullNameArr[0];
+            user.sobrenome = fullNameArr[1];
         } else {
             System.out.println("Please provide both first name and last name.");
             return getUserInfoFromUser();
         }
-        accLineInfo[0] = fullNameArr[0];
-        accLineInfo[1] = fullNameArr[1];
+
 
         System.out.println("Enter your Date of Birth (YYYY-MM-DD): ");
-        accLineInfo[2] = scanner.nextLine();
+        user.dataNascimento = scanner.nextLine();
+
         System.out.println("Enter your Gender: ");
-        accLineInfo[3] = scanner.nextLine();
+        user.genero = scanner.nextLine();
+
         System.out.println("Enter your Address: ");
-        accLineInfo[4] = scanner.nextLine();
+        user.endereco = scanner.nextLine();
+
         System.out.println("Enter your Phone Number: ");
-        accLineInfo[5] = scanner.nextLine();
+        user.telefone = scanner.nextLine();
+
         System.out.println("Enter your Email: ");
-        accLineInfo[6] = scanner.nextLine();
+        user.email = scanner.nextLine();
+
         System.out.println("Enter your Citizenship Number: ");
-        accLineInfo[7] = scanner.nextLine();
+        user.documento = scanner.nextLine();
+
         System.out.println("Create a Password for your Account: ");
-        accLineInfo[8] = scanner.nextLine();
-        return accLineInfo;
+        user.senha  = scanner.nextLine();
+        return user;
         }
 
     int accNoCreation() throws IOException {
