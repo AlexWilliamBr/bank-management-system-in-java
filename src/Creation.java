@@ -17,6 +17,7 @@ public class Creation {
         System.out.println("\nAccount created successfully!\n");
         System.out.println("Your account number is: " + accNo);
         System.out.println("Your password is: " + accLineInfo.senha+"\n");
+        System.out.println("Your name is: " + accLineInfo.nome+"\n");
         Main.menu(accNo);
 
     }
@@ -92,18 +93,28 @@ public class Creation {
     }
 
     void userWrite(int accNo,  User accLineInfo) throws IOException {
-        FileWriter writer = new FileWriter("db/userDB.txt", true);
-        writer.write("\n" + accNo + " ");
-        writer.write(accLineInfo.nome + " ");
-        writer.write(accLineInfo.sobrenome + " ");
-        writer.write(accLineInfo.dataNascimento + " ");
-        writer.write(accLineInfo.genero + " ");
-        writer.write(accLineInfo.endereco + " ");
-        writer.write(accLineInfo.telefone + " ");
-        writer.write(accLineInfo.email + " ");
-        writer.write(accLineInfo.documento + " ");
-    }
+       try (FileWriter writer = new FileWriter("db/userDB.txt", true))
+       {
 
+
+
+           writer.write("\n" + accNo + " ");
+           writer.write(accLineInfo.nome + " ");
+           writer.write(accLineInfo.sobrenome + " ");
+           writer.write(accLineInfo.dataNascimento + " ");
+           writer.write(accLineInfo.genero + " ");
+           writer.write(accLineInfo.endereco + " ");
+           writer.write(accLineInfo.telefone + " ");
+           writer.write(accLineInfo.email + " ");
+           writer.write(accLineInfo.documento + " ");
+
+       }
+       catch( IOException e) {
+        e.printStackTrace();
+
+       }
+
+    }
 
 }
 
